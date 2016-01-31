@@ -16,13 +16,13 @@ import java.util.List;
 
 @Slf4j
 @ControllerAdvice
-public class NonAnnotatedResponseConvertorAdvice implements ResponseBodyAdvice<Object> {
+public class ResponseConvertorAdvice implements ResponseBodyAdvice<Object> {
 
     private final BiDirectionalResolver biDirectionalResolver;
     private final Mapper mapper;
 
     @Autowired
-    public NonAnnotatedResponseConvertorAdvice(BiDirectionalResolver biDirectionalResolver, Mapper mapper) {
+    public ResponseConvertorAdvice(BiDirectionalResolver biDirectionalResolver, Mapper mapper) {
         this.biDirectionalResolver = biDirectionalResolver;
         this.mapper = mapper;
     }
