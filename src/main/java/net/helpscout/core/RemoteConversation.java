@@ -6,6 +6,7 @@ import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import rx.Observable;
 
 import javax.websocket.server.PathParam;
 
@@ -17,9 +18,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public interface RemoteConversation {
 
     @RequestMapping(method = POST)
-    ResponseEntity<Conversation> create(Conversation conversation);
+    Observable<Conversation> create(Conversation conversation);
 
     @RequestMapping(value = "/{id}",method = GET)
-    ResponseEntity<Conversation> get(@PathVariable("id") Long id);
+    Observable<Conversation> get(@PathVariable("id") Long id);
 
 }

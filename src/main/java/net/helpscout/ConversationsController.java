@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import rx.Observable;
 
 import java.util.List;
 
@@ -34,8 +35,8 @@ public class ConversationsController {
 
     @RequestMapping(method = POST)
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Object createConversation(@ConvertedRequestBody Conversation conversation) {
-        return remoteConversation.create(conversation).getBody();
+    public Observable<?> createConversation(@ConvertedRequestBody Conversation conversation) {
+        return remoteConversation.create(conversation);
     }
 
     @RequestMapping(method = GET)
@@ -49,14 +50,8 @@ public class ConversationsController {
     }
 
     @RequestMapping(value = "/{id}", method = GET)
-    public ResponseEntity<?> getConversation(@PathVariable Long id) {
-        val response = remoteConversation.get(id);
-        log.info("Response is {}", response.getStatusCode());
-        if (response.getStatusCode() == HttpStatus.OK) {
-            return response;
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public Observable<?> getConversation(@PathVariable Long id) {
+        return remoteConversation.get(id);
     }
 
 }
