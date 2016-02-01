@@ -44,8 +44,7 @@ public class RequestBodyConverter implements HandlerMethodArgumentResolver {
                 .orElseThrow(() -> new RuntimeException("Not a convertible class " + destinationClass));
         String json = getRequestBody(nativeWebRequest);
         Object sourceObject = new ObjectMapper().readValue(json, sourceClass);
-        Object destinationObject = mapper.map(sourceObject, destinationClass);
-        return destinationObject;
+        return mapper.map(sourceObject, destinationClass);
     }
 
     private String getRequestBody(NativeWebRequest webRequest) {

@@ -10,12 +10,12 @@ import static feign.FeignException.errorStatus;
 public class CoreApiErrorDecoder implements ErrorDecoder {
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    public static class NotFounException extends RuntimeException {}
+    public static class NotFoundException extends RuntimeException {}
 
     @Override
     public Exception decode(String methodKey, Response response) {
         if (response.status() == 404) {
-            return new NotFounException();
+            return new NotFoundException();
         }
 
         return errorStatus(methodKey, response);
